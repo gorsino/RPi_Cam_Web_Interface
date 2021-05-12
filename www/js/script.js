@@ -1,6 +1,27 @@
 //
 // Interface
 //
+var elem = document.documentElement;
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+}
+
 function toggle_fullscreen(e) {
 
   var background = document.getElementById("background");
@@ -14,10 +35,12 @@ function toggle_fullscreen(e) {
   if(e.className == "fullscreen") {
     e.className = "";
     background.style.display = "none";
+    closeFullscreen();
   }
   else {
     e.className = "fullscreen";
     background.style.display = "block";
+    openFullscreen();
   }
 
 }
@@ -82,12 +105,13 @@ function set_preset(value) {
   document.getElementById("MP4Box_fps").value = values[3];
   document.getElementById("image_width").value = values[4];
   document.getElementById("image_height").value = values[5];
+  document.getElementById("fps_divider").value = values[6];
   
   set_res();
 }
 
 function set_res() {
-  send_cmd("px " + document.getElementById("video_width").value + " " + document.getElementById("video_height").value + " " + document.getElementById("video_fps").value + " " + document.getElementById("MP4Box_fps").value + " " + document.getElementById("image_width").value + " " + document.getElementById("image_height").value);
+  send_cmd("px " + document.getElementById("video_width").value + " " + document.getElementById("video_height").value + " " + document.getElementById("video_fps").value + " " + document.getElementById("MP4Box_fps").value + " " + document.getElementById("image_width").value + " " + document.getElementById("image_height").value + " " + document.getElementById("fps_divider").value);
   update_preview_delay();
   updatePreview(true);
 }
