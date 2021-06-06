@@ -8,7 +8,4 @@
       $preview_delay = 10000;
    }
    usleep($preview_delay);
-   readfile("/var/lib/motion/snapshot.jpg");
-   //readfile("/dev/shm/mjpeg/cam.jpg");
-
-?>
+   readfile("/dev/shm/mjpeg/cam.jpg");
